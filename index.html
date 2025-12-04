@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Texts of India | Ancient Wisdom Portal</title>
+    <meta name="description" content="Explore the profound wisdom of Indian religious scriptures - Bhagavad Gita, Mahabharata, Ramayana, Upanishads, Vedas. Multilingual access with scholarly interpretations.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'saffron': '#FF9933',
+                        'saffron-light': '#FFB366',
+                        'saffron-dark': '#CC6600',
+                        'spiritual-blue': '#1E3A8A',
+                        'spiritual-light': '#3B82F6',
+                        'earth-brown': '#8B4513',
+                        'earth-light': '#A0522D',
+                        'cream': '#FFF8E1',
+                        'parchment': '#F5F5DC',
+                        'gold': '#D4AF37'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Noto Sans', 'sans-serif'],
+                        'devanagari': ['Noto Sans Devanagari', 'sans-serif']
+                    },
+                    backgroundImage: {
+                        'mandala': "url('https://picsum.photos/1200/800?random=99&blur=2')",
+                        'lotus-pattern': "url('https://picsum.photos/1000/600?random=100&blur=1')"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scripture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .language-switch {
+            transition: all 0.3s ease;
+        }
+        .language-switch.active {
+            background-color: #FF9933;
+            color: white;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF9933;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .verse-card {
+            background: linear-gradient(135deg, #FFF8E1 0%, #F5F5DC 100%);
+            border-left: 4px solid #D4AF37;
+        }
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-cream font-sans text-gray-800">
+    <!-- Language Selection Bar -->
+    <div class="bg-spiritual-blue text-white py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-end items-center space-x-4">
+                <span class="text-sm">Select Language:</span>
+                <div class="flex space-x-2">
+                    <button onclick="switchLanguage('en')" class="language-switch active px-3 py-1 rounded-full text-sm bg-saffron text-white">English</button>
+                    <button onclick="switchLanguage('hi')" class="language-switch px-3 py-1 rounded-full text-sm bg-white text-spiritual-blue hover:bg-gray-100">हिंदी</button>
+                    <button onclick="switchLanguage('sa')" class="language-switch px-3 py-1 rounded-full text-sm bg-white text-spiritual-blue hover:bg-gray-100">संस्कृतम्</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-full bg-saffron-light flex items-center justify-center">
+                        <i class="fas fa-om text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-serif font-bold text-spiritual-blue">Sacred Texts</h1>
+                        <p class="text-xs text-earth-brown">of India</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link relative text-spiritual-blue hover:text-saffron font-medium">Home</a>
+                    <a href="#scriptures" class="nav-link relative text-spiritual-blue hover:text-saffron font-medium">Scriptures</a>
+                    <a href="#verses" class="nav-link relative text-spiritual-blue hover:text-saffron font-medium">Sacred Verses</a>
+                    <a href="#blog" class="nav-link relative text-spiritual-blue hover:text-saffron font-medium">Wisdom Blog</a>
+                    <a href="#about" class="nav-link relative text-spiritual-blue hover:text-saffron font-medium">About</a>
+                    <button class="bg-saffron text-white px-6 py-2 rounded-full hover:bg-saffron-dark transition duration-300">
+                        <i class="fas fa-book-open mr-2"></i>Begin Journey
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden text-spiritual-blue text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 border-t">
+                <div class="flex flex-col space-y-4 mt-4">
+                    <a href="#home" class="text-spiritual-blue hover:text-saffron font-medium py-2">Home</a>
+                    <a href="#scriptures" class="text-spiritual-blue hover:text-saffron font-medium py-2">Scriptures</a>
+                    <a href="#verses" class="text-spiritual-blue hover:text-saffron font-medium py-2">Sacred Verses</a>
+                    <a href="#blog" class="text-spiritual-blue hover:text-saffron font-medium py-2">Wisdom Blog</a>
+                    <a href="#about" class="text-spiritual-blue hover:text-saffron font-medium py-2">About</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section id="home" class="relative overflow-hidden bg-gradient-to-br from-cream via-parchment to-cream">
+            <div class="absolute inset-0 opacity-10 bg-mandala bg-cover bg-center"></div>
+            <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
+                <div class="max-w-4xl mx-auto text-center fade-in">
+                    <h1 class="text-4xl md:text-6xl font-serif font-bold text-spiritual-blue mb-6">
+                        Ancient Wisdom for <span class="text-saffron">Modern Souls</span>
+                    </h1>
+                    <p class="text-xl text-earth-brown mb-8 leading-relaxed">
+                        Journey through the timeless teachings of India's sacred scriptures. 
+                        Discover profound insights from the Bhagavad Gita, Mahabharata, Ramayana, 
+                        Upanishads, and Vedas in a language that speaks to your heart.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button class="bg-saffron text-white px-8 py-3 rounded-full hover:bg-saffron-dark transition duration-300 text-lg font-medium">
+                            <i class="fas fa-compass mr-2"></i>Start Your Journey
+                        </button>
+                        <button class="bg-white text-spiritual-blue border border-spiritual-blue px-8 py-3 rounded-full hover:bg-spiritual-blue hover:text-white transition duration-300 text-lg font-medium">
+                            <i class="fas fa-graduation-cap mr-2"></i>Explore Scriptures
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Scriptures Section -->
+        <section id="scriptures" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-spiritual-blue mb-4">Sacred Scriptures</h2>
+                    <p class="text-lg text-earth-brown max-w-2xl mx-auto">
+                        Explore the foundational texts that have shaped spiritual thought for millennia
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Scripture Cards -->
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-book text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Bhagavad Gita</h3>
+                        <p class="text-earth-brown mb-4">
+                            The celestial song containing the essence of Vedic wisdom. A dialogue between 
+                            Lord Krishna and Arjuna on duty, righteousness, and liberation.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">700 Verses</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-scroll text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Mahabharata</h3>
+                        <p class="text-earth-brown mb-4">
+                            The great epic of India, containing the Bhagavad Gita. A narrative of 
+                            dharma, war, and the complexities of human existence.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">100,000 Shlokas</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-crown text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Ramayana</h3>
+                        <p class="text-earth-brown mb-4">
+                            The journey of Lord Rama, exemplifying ideal conduct, devotion, and 
+                            the victory of good over evil through dharma.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">24,000 Verses</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-lightbulb text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Upanishads</h3>
+                        <p class="text-earth-brown mb-4">
+                            Philosophical texts exploring the nature of reality, consciousness, 
+                            and the ultimate truth (Brahman). The foundation of Vedanta.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">108 Principal Texts</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-star-and-crescent text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Vedas</h3>
+                        <p class="text-earth-brown mb-4">
+                            The oldest scriptures of Hinduism, containing hymns, philosophies, 
+                            and guidance for rituals. Considered apauruṣeya (not of human agency).
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">4 Collections</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="scripture-card bg-parchment rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="w-16 h-16 rounded-full bg-saffron-light flex items-center justify-center mb-6">
+                            <i class="fas fa-hands-praying text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-bold text-spiritual-blue mb-3">Puranas</h3>
+                        <p class="text-earth-brown mb-4">
+                            Ancient lore containing cosmology, genealogies, and teachings through 
+                            stories of gods, goddesses, and legendary figures.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-saffron-dark font-medium">18 Major Texts</span>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Explore <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sacred Verses Section -->
+        <section id="verses" class="py-16 bg-lotus-pattern bg-cover bg-center">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-white mb-4">Timeless Wisdom</h2>
+                        <p class="text-lg text-white/90">Sacred verses from the scriptures in multiple languages</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Verse Card 1 -->
+                        <div class="verse-card rounded-xl p-8 shadow-xl">
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-saffron-dark font-semibold">Bhagavad Gita 2.47</span>
+                                    <div class="flex space-x-2">
+                                        <button class="text-sm px-3 py-1 bg-saffron-light text-white rounded-full">English</button>
+                                        <button class="text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">हिंदी</button>
+                                        <button class="text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">संस्कृतम्</button>
+                                    </div>
+                                </div>
+                                <p class="text-lg italic text-earth-brown mb-4 leading-relaxed">
+                                    "You have a right to perform your prescribed duty, but you are not entitled 
+                                    to the fruits of action. Never consider yourself to be the cause of the results 
+                                    of your activities, nor be attached to inaction."
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Karmanye vadhikaraste, Ma phaleshu kadachana,<br>
+                                    Ma karma phala hetur bhurma, Te sangostvakarmani.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-200">
+                                <p class="text-gray-700">
+                                    <span class="font-semibold">Interpretation:</span> Focus on your duty without attachment to results. 
+                                    Perform actions as an offering, free from expectations.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Verse Card 2 -->
+                        <div class="verse-card rounded-xl p-8 shadow-xl">
+                            <div class="mb-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-saffron-dark font-semibold">Isha Upanishad 1</span>
+                                    <div class="flex space-x-2">
+                                        <button class="text-sm px-3 py-1 bg-saffron-light text-white rounded-full">English</button>
+                                        <button class="text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">हिंदी</button>
+                                        <button class="text-sm px-3 py-1 bg-gray-200 text-gray-700 rounded-full">संस्कृतम्</button>
+                                    </div>
+                                </div>
+                                <p class="text-lg italic text-earth-brown mb-4 leading-relaxed">
+                                    "The whole universe is pervaded by the Divine. Everything animate or inanimate 
+                                    that is in the universe is controlled and owned by the Lord. One should therefore 
+                                    accept only what is necessary, which is set aside as one's quota, and not accept 
+                                    other things, knowing well to whom they belong."
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Īśāvāsyam idaṁ sarvaṁ yat kiñca jagatyāṁ jagat,<br>
+                                    Tena tyaktena bhuñjīthā mā gṛdhaḥ kasya svid dhanam.
+                                </p>
+                            </div>
+                            <div class="pt-4 border-t border-gray-200">
+                                <p class="text-gray-700">
+                                    <span class="font-semibold">Interpretation:</span> Recognize the divine presence in all things. 
+                                    Take only what you need, without greed, understanding everything belongs to the Supreme.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-12">
+                        <button class="bg-white text-spiritual-blue px-8 py-3 rounded-full hover:bg-gray-100 transition duration-300 font-medium">
+                            <i class="fas fa-book-reader mr-2"></i>Explore More Verses
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wisdom Blog Section -->
+        <section id="blog" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-spiritual-blue mb-4">Wisdom Blog</h2>
+                    <p class="text-lg text-earth-brown max-w-2xl mx-auto">
+                        Scholarly articles, philosophical discussions, and contemporary interpretations
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Blog Card 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/600/400?random=10" alt="Ancient manuscript with Sanskrit text" class="w-full h-full object-cover hover:scale-105 transition duration-500" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-saffron-dark mb-3">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <span>Dec 15, 2023</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-user mr-2"></i>
+                                <span>Dr. Sharma</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-3">
+                                The Concept of Dharma in Modern Life
+                            </h3>
+                            <p class="text-earth-brown mb-4">
+                                Exploring how the ancient concept of dharma can guide ethical decision-making 
+                                in contemporary professional and personal contexts...
+                            </p>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Read Article <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Blog Card 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/600/400?random=11" alt="Yoga meditation in nature" class="w-full h-full object-cover hover:scale-105 transition duration-500" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-saffron-dark mb-3">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <span>Dec 10, 2023</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-user mr-2"></i>
+                                <span>Prof. Patel</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-3">
+                                Yoga Beyond Asanas: Patanjali's Eight Limbs
+                            </h3>
+                            <p class="text-earth-brown mb-4">
+                                A deep dive into the Yoga Sutras of Patanjali, exploring the eightfold 
+                                path beyond physical postures to spiritual enlightenment...
+                            </p>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Read Article <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Blog Card 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://picsum.photos/600/400?random=12" alt="Traditional Indian temple architecture" class="w-full h-full object-cover hover:scale-105 transition duration-500" loading="lazy">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-saffron-dark mb-3">
+                                <i class="fas fa-calendar-alt mr-2"></i>
+                                <span>Dec 5, 2023</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-user mr-2"></i>
+                                <span>Dr. Gupta</span>
+                            </div>
+                            <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-3">
+                                Environmental Ethics in the Vedas
+                            </h3>
+                            <p class="text-earth-brown mb-4">
+                                How ancient Vedic texts provide a framework for sustainable living 
+                                and environmental conservation in the 21st century...
+                            </p>
+                            <a href="#" class="text-spiritual-light hover:text-saffron font-medium flex items-center">
+                                Read Article <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <button class="bg-saffron text-white px-8 py-3 rounded-full hover:bg-saffron-dark transition duration-300 font-medium">
+                        <i class="fas fa-newspaper mr-2"></i>View All Articles
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-gradient-to-r from-cream to-parchment">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-8">
+                        <div class="w-20 h-20 rounded-full bg-saffron-light flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-language text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-4">Multilingual Access</h3>
+                        <p class="text-earth-brown">
+                            Read scriptures in English, Hindi, and Sanskrit with parallel translations 
+                            and transliterations for deeper understanding.
+                        </p>
+                    </div>
+
+                    <div class="text-center p-8">
+                        <div class="w-20 h-20 rounded-full bg-saffron-light flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-4">Scholar Insights</h3>
+                        <p class="text-earth-brown">
+                            Access commentaries from traditional acharyas and modern scholars 
+                            to understand contextual and philosophical nuances.
+                        </p>
+                    </div>
+
+                    <div class="text-center p-8">
+                        <div class="w-20 h-20 rounded-full bg-saffron-light flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-users text-white text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-serif font-bold text-spiritual-blue mb-4">Community Learning</h3>
+                        <p class="text-earth-brown">
+                            Join discussion forums, study groups, and live sessions with experts 
+                            to deepen your understanding through shared exploration.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="py-16 bg-spiritual-blue text-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl mx-auto text-center">
+                    <h2 class="text-3xl font-serif font-bold mb-6">Stay Connected with Ancient Wisdom</h2>
+                    <p class="text-lg mb-8 opacity-90">
+                        Receive weekly verses, articles, and insights from sacred texts directly in your inbox.
+                    </p>
+                    <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Your email address" class="flex-grow px-6 py-3 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-saffron">
+                        <button type="submit" class="bg-saffron text-white px-8 py-3 rounded-full hover:bg-saffron-dark transition duration-300 font-medium">
+                            Subscribe <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                    <p class="text-sm mt-4 opacity-75">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="about" class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-saffron-light flex items-center justify-center">
+                            <i class="fas fa-om text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-serif font-bold">Sacred Texts</h3>
+                            <p class="text-xs text-gray-400">of India</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400">
+                        A digital sanctuary for exploring the timeless wisdom of Indian scriptures. 
+                        Making ancient knowledge accessible to modern seekers.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-saffron-light">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">All Scriptures</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Daily Verse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Blog Archive</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-saffron-light">Scriptures</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Bhagavad Gita</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Mahabharata</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Ramayana</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Upanishads</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Vedas</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 text-saffron-light">Connect With Us</h4>
+                    <div class="flex space-x-4 mb-6">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-saffron transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-saffron transition duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-saffron transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-saffron transition duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        <i class="fas fa-envelope mr-2"></i>contact@sacredtextsindia.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500 text-sm">
+                <p>© 2023 Sacred Texts of India. All rights reserved. | Designed with reverence for tradition</p>
+                <p class="mt-2">This site is for educational and spiritual purposes. We honor all traditions and paths.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent -->
+    <div id="cookieConsent" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 shadow-lg z-50 hidden">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0 md:mr-6">
+                    <p class="text-sm">
+                        We use cookies to enhance your experience and analyze site traffic. By continuing to use this site, 
+                        you consent to our use of cookies. Learn more in our 
+                        <a href="#" class="text-saffron-light hover:text-saffron underline">Privacy Policy</a>.
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="acceptCookies()" class="bg-saffron text-white px-6 py-2 rounded-full hover:bg-saffron-dark transition duration-300 text-sm">
+                        Accept All
+                    </button>
+                    <button onclick="declineCookies()" class="bg-gray-700 text-white px-6 py-2 rounded-full hover:bg-gray-600 transition duration-300 text-sm">
+                        Decline
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define data at the beginning
+        const scriptures = [
+            {
+                "id": 1,
+                "name": "Bhagavad Gita",
+                "description": "The celestial song containing the essence of Vedic wisdom",
+                "verses": 700,
+                "icon": "fa-book",
+                "color": "saffron-light"
+            },
+            {
+                "id": 2,
+                "name": "Mahabharata",
+                "description": "The great epic of India, containing the Bhagavad Gita",
+                "verses": "100,000 Shlokas",
+                "icon": "fa-scroll",
+                "color": "saffron-light"
+            },
+            {
+                "id": 3,
+                "name": "Ramayana",
+                "description": "The journey of Lord Rama, exemplifying ideal conduct",
+                "verses": "24,000 Verses",
+                "icon": "fa-crown",
+                "color": "saffron-light"
+            },
+            {
+                "id": 4,
+                "name": "Upanishads",
+                "description": "Philosophical texts exploring the nature of reality",
+                "verses": "108 Principal Texts",
+                "icon": "fa-lightbulb",
+                "color": "saffron-light"
+            },
+            {
+                "id": 5,
+                "name": "Vedas",
+                "description": "The oldest scriptures of Hinduism",
+                "verses": "4 Collections",
+                "icon": "fa-star-and-crescent",
+                "color": "saffron-light"
+            },
+            {
+                "id": 6,
+                "name": "Puranas",
+                "description": "Ancient lore containing cosmology and teachings",
+                "verses": "18 Major Texts",
+                "icon": "fa-hands-praying",
+                "color": "saffron-light"
+            }
+        ];
+
+        const blogPosts = [
+            {
+                "id": 1,
+                "title": "The Concept of Dharma in Modern Life",
+                "excerpt": "Exploring how the ancient concept of dharma can guide ethical decision-making...",
+                "date": "Dec 15, 2023",
+                "author": "Dr. Sharma",
+                "image": "https://picsum.photos/600/400?random=10"
+            },
+            {
+                "id": 2,
+                "title": "Yoga Beyond Asanas: Patanjali's Eight Limbs",
+                "excerpt": "A deep dive into the Yoga Sutras of Patanjali, exploring the eightfold path...",
+                "date": "Dec 10, 2023",
+                "author": "Prof. Patel",
+                "image": "https://picsum.photos/600/400?random=11"
+            },
+            {
+                "id": 3,
+                "title": "Environmental Ethics in the Vedas",
+                "excerpt": "How ancient Vedic texts provide a framework for sustainable living...",
+                "date": "Dec 5, 2023",
+                "author": "Dr. Gupta",
+                "image": "https://picsum.photos/600/400?random=12"
+            }
+        ];
+
+        const sacredVerses = [
+            {
+                "id": 1,
+                "source": "Bhagavad Gita 2.47",
+                "english": "\"You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself to be the cause of the results of your activities, nor be attached to inaction.\"",
+                "sanskrit": "Karmanye vadhikaraste, Ma phaleshu kadachana, Ma karma phala hetur bhurma, Te sangostvakarmani.",
+                "hindi": "\"कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥\"",
+                "interpretation": "Focus on your duty without attachment to results. Perform actions as an offering, free from expectations."
+            },
+            {
+                "id": 2,
+                "source": "Isha Upanishad 1",
+                "english": "\"The whole universe is pervaded by the Divine. Everything animate or inanimate that is in the universe is controlled and owned by the Lord. One should therefore accept only what is necessary, which is set aside as one's quota, and not accept other things, knowing well to whom they belong.\"",
+                "sanskrit": "Īśāvāsyam idaṁ sarvaṁ yat kiñca jagatyāṁ jagat, Tena tyaktena bhuñjīthā mā gṛdhaḥ kasya svid dhanam.",
+                "hindi": "\"ईशावास्यमिदं सर्वं यत्किञ्च जगत्यां जगत्। तेन त्यक्तेन भुञ्जीथा मा गृधः कस्यस्विद्धनम्॥\"",
+                "interpretation": "Recognize the divine presence in all things. Take only what you need, without greed, understanding everything belongs to the Supreme."
+            }
+        ];
+
+        // Current language state
+        let currentLanguage = 'en';
+
+        // Mobile menu functionality
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language switching functionality
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update active language button
+            document.querySelectorAll('.language-switch').forEach(btn => {
+                btn.classList.remove('active', 'bg-saffron', 'text-white');
+                btn.classList.add('bg-white', 'text-spiritual-blue');
+            });
+            
+            const activeBtn = document.querySelector(`button[onclick="switchLanguage('${lang}')"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'bg-saffron', 'text-white');
+                activeBtn.classList.remove('bg-white', 'text-spiritual-blue');
+            }
+            
+            // In a real implementation, this would update all text content
+            // For now, we'll just show a notification
+            showLanguageNotification(lang);
+        }
+
+        function showLanguageNotification(lang) {
+            const messages = {
+                'en': 'Language switched to English',
+                'hi': 'भाषा हिंदी में बदल गई',
+                'sa': 'संस्कृतभाषा परिवर्तिता'
+            };
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 right-4 bg-saffron text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.textContent = messages[lang];
+            notification.id = 'langNotification';
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Cookie consent functionality
+        function checkCookieConsent() {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookieConsent').classList.remove('hidden');
+            }
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieConsent').classList.add('hidden');
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookiesAccepted', 'false');
+            document.getElementById('cookieConsent').classList.add('hidden');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                }
+            });
+        });
+
+        // Newsletter form submission
+        document.querySelector('form')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            if (email) {
+                // In a real implementation, this would send to a backend
+                alert('Thank you for subscribing! You will receive wisdom updates soon.');
+                this.reset();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkCookieConsent();
+            
+            // Add fade-in animation to elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all scripture cards and verse cards
+            document.querySelectorAll('.scripture-card, .verse-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Prevent default behavior for all anchor tags
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+                    // Allow smooth scrolling for anchor links
+                    return;
+                }
+                e.preventDefault();
+                // In a real implementation, this would handle routing
+                console.log('Navigation prevented for:', this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
